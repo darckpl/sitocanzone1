@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Chicchi di Caffè - Tony Boy</title>
+    <link rel="stylesheet" href="stile.css">
+</head>
+<body>
+
+<header>
+    <h1>Chicchi di Caffè</h1>
+    <p>Tony Boy</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="testo.html">Testo</a>
+    <a href="analisi.html">Analisi</a>
+</nav>
+
+<main class="home-flex">
+    <div class="video-container">
+        <h2>Video della canzone</h2>
+        <video id="videoHome" controls>
+            <source src="video/chicchi_di_caffe.mp4" type="video/mp4">
+        
+        </video>
+        <p></p>
+    </div>
+
+    <div class="lyrics-aside">
+        <div id="lyricsScroll" class="lyrics-wrapper">
+            <p data-time="0">Non sarai la prima che mi mette all'angolo, ah<br>In un angolo</p>
+            <p data-time="5">Ci ho passato inverni, estati, un anno, ah<br>Ci sono tornato ricco</p>
+            <p data-time="10">Ero uno di quelli che pensavi: "Che fanno?"<br>Quattro tiri, ho l'affanno</p>
+            <p data-time="15">La mia tosse sa di pillole e asfalto<br>Sono chiuso in un cerchio, vizi e alcol, ah</p>
+            <p data-time="20">Tanti entrano e vanno, night life, guardo<br>Queste ballerine che si cambiano</p>
+            <p data-time="25">Pronte per sorridere a un altro, mhm<br>Ho i demoni in testa ogni tanto</p>
+            <p data-time="30">Potrei levare l' "ogni tanto"<br>A volte chiedo scusa al mio quartiere</p>
+            <p data-time="35">Perché mi sento l'unico salvo<br>Delle volte mi drogo, sono annoiato</p>
+            <p data-time="40">Faccio fare allo sbirro tutto l'isolato<br>Baby, scusa, sai che son désolé</p>
+            <p data-time="45">So che è un posto che sogni e non ti ho portato<br>Ci siamo fatti male, era concordato</p>
+            <p data-time="50">Guardo Arya negli occhi, sono emozionato<br>Sono lacrime vere, non è calcolato</p>
+            <p data-time="55">Passo in fronte agli sbirri, guardo l'altro lato</p>
+            <p data-time="60" class="active-gold">Hai visto il mio futuro in una tazza di caffè<br>Schiacciando pills come chicchi di caffè</p>
+            <p data-time="65" class="active-gold">E le scritte sul muro mi ricordano che<br>Nulla è per sempre, per sempre</p>
+            <p data-time="75">Due gocce in più di alcol mi riportano da te<br>Maschere un po' ovunque, nessuno fa la skincare</p>
+            <p data-time="80">Hai visto troppe cose, ti si intaccano all'interno<br>Mi siedo sopra l'ansia nonostante tutti i flex</p>
+            <p data-time="85">E ora parlo con il diavolo, gli tiro tutti i cash<br>Ballando con Dio, ci fanno tutti i flash</p>
+            <p data-time="90">Mi tieni forte il braccio, ma non so se è amore o stress<br>La notte dà consiglio, però non dormo con te</p>
+            <p data-time="95">Penso molto, posso dire di continuo<br>Quantità infinite, di continuo</p>
+            <p data-time="100">Vado avanti pure se il party è finito<br>So che pensi a me quando ti infili due dita</p>
+            <p data-time="105">VVS brilla come la rugiada<br>Se hai qualcosa dentro, non c'è bisogno di dirmela</p>
+            <p data-time="110">Uno sguardo solo, baby, so che hai già capito<br>Ci chiudiamo a letto, non chiederemo mai aiuto</p>
+        </div>
+    </div>
+</main>
+
+<footer><p>shuvo-diego</p></footer>
+
+<script>
+    const video = document.getElementById('videoHome');
+    const scrollContainer = document.getElementById('lyricsScroll');
+    const lines = document.querySelectorAll('.lyrics-wrapper p');
+
+    video.addEventListener('timeupdate', () => {
+        let current = video.currentTime;
+        lines.forEach((line, i) => {
+            const start = parseFloat(line.getAttribute('data-time'));
+            const next = lines[i+1] ? parseFloat(lines[i+1].getAttribute('data-time')) : 999;
+
+            if (current >= start && current < next) {
+                lines.forEach(l => l.classList.remove('active'));
+                line.classList.add('active');
+                const offset = line.offsetTop - 100; 
+                scrollContainer.style.transform = `translateY(-${offset > 0 ? offset : 0}px)`;
+            }
+        });
+    });
+</script>
+</body>
+</html>
